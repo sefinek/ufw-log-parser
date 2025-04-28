@@ -2,7 +2,9 @@ const { parseNumber, parseTimestamp } = require('./parser-utils.js');
 const { version } = require('./package.json');
 
 const parseUfwLog = line => {
-	const match = (regex) => line.match(regex)?.[1] || null;
+	line = line.trim();
+
+	const match = regex => line.match(regex)?.[1] || null;
 	const tcpFlags = line.match(/\b(ACK|SYN|PSH|URG|FIN|RST)\b/g) || [];
 
 	return {
@@ -31,6 +33,7 @@ const parseUfwLog = line => {
 			fin: tcpFlags.includes('FIN'),
 			rst: tcpFlags.includes('RST'),
 		},
+		df: (/\bDF\b/).test(line) || false,
 	};
 };
 

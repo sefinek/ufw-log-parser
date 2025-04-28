@@ -7,6 +7,7 @@ exports.parseNumber = (str, regex) => {
 };
 
 const pad = n => n.toString().padStart(2, '0');
+
 const getCurrentUTC = () => {
 	const d = new Date();
 	return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}Z`;
@@ -19,12 +20,21 @@ exports.parseTimestamp = str => {
 	let ts = match[0];
 
 	if (!ts.includes('T')) {
-		const [month, day, time] = ts.trim().split(/\s+/);
-		const year = new Date().getUTCFullYear();
-		const validMonth = MONTHS[month];
-		if (!validMonth) return getCurrentUTC();
-		ts = `${year}-${validMonth}-${pad(day)}T${time.length === 5 ? time + ':00' : time}Z`;
-	} else if (!(/[+-]\d{2}:\d{2}|Z$/).test(ts)) {
+		const parts = ts.trim().split(/\s+/);
+		if (parts.length < 2) return getCurrentUTC();
+
+		const [monthName, day, time] = parts;
+		const month = MONTHS[monthName];
+		if (!month) return getCurrentUTC();
+
+		const now = new Date();
+		const year = now.getUTCFullYear();
+		const correctedTime = time.length === 5 ? time + ':00' : time; // HH:mm → HH:mm:ss
+
+		ts = `${year}-${month}-${pad(day)}T${correctedTime}Z`;
+	}
+
+	if (!(/[+-]\d{2}:\d{2}|Z$/).test(ts)) {
 		ts += 'Z';
 	}
 

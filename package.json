@@ -1,11 +1,20 @@
 {
   "name": "ufw-log-parser",
-  "version": "1.0.0",
-  "description": "UFW log parser.",
+  "version": "0.1.0",
+  "description": "Lightweight and fast parser for UFW firewall logs, supporting TCP flags, timestamps, and detailed packet metadata.",
   "keywords": [
     "ufw",
+    "ufw logs",
+    "log parser",
+    "firewall",
+    "linux",
+    "security",
     "parser",
-    "log-parser"
+    "log-analyzer",
+    "iptables",
+    "tcp flags",
+    "timestamps",
+    "network"
   ],
   "homepage": "https://github.com/sefinek/ufw-log-parser#readme",
   "bugs": {
@@ -19,6 +28,7 @@
   "author": "Sefinek <contact@sefinek.net> (https://sefinek.net)",
   "type": "commonjs",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "jest test",
     "up": "ncu -u && npm install && npm update && npm audit fix"
