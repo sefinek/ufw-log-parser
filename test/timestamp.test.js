@@ -1,7 +1,7 @@
 const { parseTimestamp } = require('../parser-utils.js');
 const TEST_CASES = require('./array.js');
 
-describe('parseTimestamp - timestamp parsing tests', () => {
+describe('parseTimestamp()', () => {
 	TEST_CASES.forEach(({ input, expected }) => {
 		it(`correctly parses: "${input}"`, () => {
 			const result = parseTimestamp(input);

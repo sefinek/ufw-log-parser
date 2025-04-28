@@ -1,6 +1,6 @@
 const { parseUfwLog } = require('../index.js');
 
-describe('parseUfwLog - full extended tests', () => {
+describe('parseUfwLog()', () => {
 	const samples = [
 		{
 			desc: 'Basic TCP SYN packet',
