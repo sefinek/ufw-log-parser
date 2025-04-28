@@ -1,4 +1,4 @@
-const { parseTimestamp } = require('../parser-utils.js');
+const { parseTimestamp } = require('../utils.js');
 const TEST_CASES = require('./array.js');
 
 describe('parseTimestamp()', () => {

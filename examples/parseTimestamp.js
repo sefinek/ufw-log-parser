@@ -1,4 +1,4 @@
-const { parseTimestamp, MONTHS } = require('../parser-utils.js');
+const { parseTimestamp, MONTHS } = require('../utils.js');
 const TEST_CASES = require('../test/array.js');
 
 const isApproximatelyNow = ts => {

@@ -1,4 +1,4 @@
-const { parseNumber, parseTimestamp } = require('./parser-utils.js');
+const { parseNumber, parseTimestamp } = require('./utils.js');
 const { version } = require('./package.json');
 
 const parseUfwLog = line => {
