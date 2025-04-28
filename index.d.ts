@@ -29,13 +29,10 @@ export interface UfwLogEntry {
     df: boolean;
 }
 
-export interface Utils {
-    parseNumber(str: string, regex: RegExp): number | null;
-    parseTimestamp(str: string): string;
-}
+export declare function parseUfwLog(line: string): UfwLogEntry;
 
-export declare const parseUfwLog: (line: string) => UfwLogEntry;
+export declare function parseNumber(str: string, regex: RegExp): number | null;
 
-export declare const utils: Utils;
+export declare function parseTimestamp(str: string): string;
 
 export declare const version: string;

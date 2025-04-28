@@ -39,9 +39,7 @@ const parseUfwLog = line => {
 
 module.exports = {
 	parseUfwLog,
-	utils: {
-		parseNumber,
-		parseTimestamp,
-	},
+	parseNumber,
+	parseTimestamp,
 	version,
 };
