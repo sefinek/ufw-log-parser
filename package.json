@@ -33,6 +33,13 @@
     "example": "examples",
     "test": "test"
   },
+  "files": [
+    "index.js",
+    "utils.js",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "jest test",
     "up": "ncu -u && npm install && npm update && npm audit fix"
