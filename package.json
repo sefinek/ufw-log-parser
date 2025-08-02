@@ -1,6 +1,6 @@
 {
   "name": "ufw-log-parser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A lightweight and fast parser for UFW firewall logs, supporting TCP flags, timestamps, and detailed packet metadata.",
   "keywords": [
     "ufw",
@@ -34,8 +34,8 @@
     "up": "ncu -u && npm install && npm update && npm audit fix"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.1",
-    "globals": "^16.0.0",
-    "jest": "^29.7.0"
+    "@eslint/js": "^9.32.0",
+    "globals": "^16.3.0",
+    "jest": "^30.0.5"
   }
 }
