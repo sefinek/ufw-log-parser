@@ -23,16 +23,16 @@ const failedTests = [];
 TEST_CASES.forEach(({ input, expected }) => {
 	const result = parseTimestamp(input);
 	const passed =
-        expected === 'now' ? isApproximatelyNow(result) :
-        	expected === 'syslog' ? isSyslogMatching(input, result) :
-        		result === expected;
+        expected === 'now' ? isApproximatelyNow(result.timestamp) :
+        	expected === 'syslog' ? isSyslogMatching(input, result.timestamp) :
+        		result.timestamp === expected;
 
 	if (passed) {
-		console.log(`[PASS] ${input} -> ${result}`);
+		console.log(`[PASS] ${input || 'Empty'} (found: ${result.timestampRaw}) -> ${result.timestamp}`);
 		passedCount++;
 	} else {
-		console.log(`[FAIL] ${input} -> ${result} (expected: ${expected})`);
-		failedTests.push({ input, expected, actual: result });
+		console.log(`[FAIL] ${input || 'Empty'} (found: ${result.timestampRaw}) -> ${result.timestamp} (expected: ${expected})`);
+		failedTests.push({ input, expected, actual: result.timestamp });
 	}
 });
 

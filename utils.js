@@ -16,32 +16,41 @@ const parseNumber = (str, regex) => {
 };
 
 const parseTimestamp = str => {
-	if (!str) return getCurrentUTC();
+	if (!str) return { timestamp: getCurrentUTC(), timestampRaw: null };
 
+	// ISO
 	const iso = str.match(ISO_RE);
 	if (iso) {
-		let ts = iso[0];
+		const raw = iso[0];
+		let ts = raw;
 		if ((/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/).test(ts)) ts += ':00';
 		if (!(/[+-]\d{2}:\d{2}|Z$/).test(ts)) ts += 'Z';
+
 		const t = Date.parse(ts);
-		if (isNaN(t) || t > Date.now()) return getCurrentUTC();
-		return toUtcStringMs(new Date(t));
+		if (!isNaN(t) && t <= Date.now()) {
+			return { timestamp: toUtcStringMs(new Date(t)), timestampRaw: raw };
+		}
+		return { timestamp: getCurrentUTC(), timestampRaw: raw };
 	}
 
+	// SYSLOG
 	const sys = str.match(SYSLOG_RE);
 	if (sys) {
 		const raw = sys[0].replace(/\s+/g, ' ').trim();
 		const [mon, dayS, time] = raw.split(' ');
 		const month = MONTHS[mon];
-		if (!month) return getCurrentUTC();
-		const [hh, mm, ss] = (time.length === 5 ? `${time}:00` : time).split(':').map(Number);
-		const year = new Date().getFullYear();
-		const local = new Date(year, parseInt(month) - 1, parseInt(dayS, 10), hh, mm, ss || 0, 0);
-		const utcMillis = local.getTime() - local.getTimezoneOffset() * 60000;
-		return toUtcStringMs(new Date(utcMillis));
+		if (month) {
+			const [hh, mm, ss] = (time.length === 5 ? `${time}:00` : time).split(':').map(Number);
+			const year = new Date().getFullYear();
+			const local = new Date(year, +month - 1, +dayS, hh, mm, ss || 0, 0);
+			const utcMillis = local.getTime() - local.getTimezoneOffset() * 60000;
+			return { timestamp: toUtcStringMs(new Date(utcMillis)), timestampRaw: raw };
+		}
+		return { timestamp: getCurrentUTC(), timestampRaw: raw };
 	}
 
-	return getCurrentUTC();
+	// fallback
+	return { timestamp: getCurrentUTC(), timestampRaw: null };
 };
 
 module.exports = { parseNumber, parseTimestamp, MONTHS, toUtcStringMs };

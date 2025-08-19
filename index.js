@@ -4,11 +4,13 @@ const { version } = require('./package.json');
 const parseUfwLog = line => {
 	line = line.trim();
 
+	const { timestamp, timestampRaw } = parseTimestamp(line);
 	const match = regex => line.match(regex)?.[1] || null;
 	const tcpFlags = line.match(/\b(ACK|SYN|PSH|URG|FIN|RST)\b/g) || [];
 
 	return {
-		timestamp: parseTimestamp(line),
+		timestamp,
+		timestampRaw,
 		srcIp: match(/SRC=(\S+)/),
 		dstIp: match(/DST=(\S+)/),
 		proto: match(/PROTO=(\S+)/),
