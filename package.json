@@ -1,6 +1,6 @@
 {
   "name": "ufw-log-parser",
-  "version": "0.1.2",
+  "version": "1.0.0-beta.0",
   "description": "A lightweight and fast parser for UFW firewall logs, supporting TCP flags, timestamps, and detailed packet metadata.",
   "keywords": [
     "ufw",
