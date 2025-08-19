@@ -1,6 +1,6 @@
 {
   "name": "ufw-log-parser",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A lightweight and fast parser for UFW firewall logs, supporting TCP flags, timestamps, and detailed packet metadata.",
   "keywords": [
     "ufw",
@@ -24,9 +24,20 @@
     "type": "git",
     "url": "git+https://github.com/sefinek/ufw-log-parser.git"
   },
+  "funding": {
+    "type": "individual",
+    "url": "https://sefinek.net/donate"
+  },
   "license": "MIT",
   "author": "Sefinek <contact@sefinek.net> (https://sefinek.net)",
   "type": "commonjs",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "require": "./index.js",
+      "default": "./index.js"
+    }
+  },
   "main": "index.js",
   "types": "index.d.ts",
   "directories": {
@@ -45,8 +56,11 @@
     "up": "ncu -u && npm install && npm update && npm audit fix"
   },
   "devDependencies": {
-    "@eslint/js": "^9.32.0",
+    "@eslint/js": "^9.33.0",
     "globals": "^16.3.0",
     "jest": "^30.0.5"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

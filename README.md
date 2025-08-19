@@ -19,7 +19,7 @@ console.log(parsed);
 ## Output
 ```json
 {
-  "timestamp": "2025-04-27T04:33:00Z",
+  "timestamp": "2025-04-27T04:33:00.278Z",
   "srcIp": "172.70.240.4",
   "dstIp": "104.21.23.5",
   "proto": "TCP",
