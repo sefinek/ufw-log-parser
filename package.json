@@ -56,9 +56,9 @@
     "test": "jest test"
   },
   "devDependencies": {
-    "@eslint/js": "^9.33.0",
-    "globals": "^16.3.0",
-    "jest": "^30.0.5"
+    "@eslint/js": "^10.0.1",
+    "globals": "^17.3.0",
+    "jest": "^30.2.0"
   },
   "engines": {
     "node": ">=18"
