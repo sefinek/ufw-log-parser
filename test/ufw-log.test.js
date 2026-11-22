@@ -1,3 +1,5 @@
+const { describe, test } = require('node:test');
+const assert = require('node:assert/strict');
 const { parseUfwLog } = require('../index.js');
 
 describe('parseUfwLog()', () => {
@@ -104,47 +106,49 @@ describe('parseUfwLog()', () => {
 		},
 	];
 
-	test.each(samples)('$desc', ({ line, expected }) => {
-		const result = parseUfwLog(line);
+	for (const { desc, line, expected } of samples) {
+		test(desc, () => {
+			const result = parseUfwLog(line);
 
-		expect(result.timestamp).toMatch(/^2025-04-28T|2025-04-27T/);
-		expect(result.srcIp).toBe(expected.srcIp);
-		expect(result.dstIp).toBe(expected.dstIp);
-		expect(result.proto).toBe(expected.proto);
-		expect(result.spt).toBe(expected.spt);
-		expect(result.dpt).toBe(expected.dpt);
-		expect(result.in).toBe(expected.in);
-		expect(result.out).toBe(expected.out);
+			assert.match(result.timestamp, /^2025-04-28T|2025-04-27T/);
+			assert.equal(result.srcIp, expected.srcIp);
+			assert.equal(result.dstIp, expected.dstIp);
+			assert.equal(result.proto, expected.proto);
+			assert.equal(result.spt, expected.spt);
+			assert.equal(result.dpt, expected.dpt);
+			assert.equal(result.in, expected.in);
+			assert.equal(result.out, expected.out);
 
-		if (expected.mac !== null) {
-			expect(result.mac?.startsWith(expected.mac)).toBe(true);
-		} else {
-			expect(result.mac).toBeNull();
-		}
+			if (expected.mac !== null) {
+				assert.equal(result.mac?.startsWith(expected.mac), true);
+			} else {
+				assert.equal(result.mac, null);
+			}
 
-		if (expected.len !== null) {
-			expect(result.len).toBeGreaterThan(0);
-		} else {
-			expect(result.len).toBeNull();
-		}
+			if (expected.len !== null) {
+				assert.ok(result.len > 0);
+			} else {
+				assert.equal(result.len, null);
+			}
 
-		if (expected.ttl !== null) {
-			expect(result.ttl).toBeGreaterThan(0);
-		} else {
-			expect(result.ttl).toBeNull();
-		}
+			if (expected.ttl !== null) {
+				assert.ok(result.ttl > 0);
+			} else {
+				assert.equal(result.ttl, null);
+			}
 
-		if (expected.id !== null) {
-			expect(result.id).toBeGreaterThan(0);
-		} else {
-			expect(result.id).toBeNull();
-		}
+			if (expected.id !== null) {
+				assert.ok(result.id > 0);
+			} else {
+				assert.equal(result.id, null);
+			}
 
-		if (expected.urgp !== undefined) {
-			expect(result.urgp).toBe(expected.urgp);
-		}
+			if (expected.urgp !== undefined) {
+				assert.equal(result.urgp, expected.urgp);
+			}
 
-		expect(result.flags).toEqual(expected.flags);
-		expect(result.df).toEqual(expected.df);
-	});
+			assert.deepEqual(result.flags, expected.flags);
+			assert.deepEqual(result.df, expected.df);
+		});
+	}
 });
