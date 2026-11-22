@@ -16,7 +16,7 @@
     "timestamps",
     "network"
   ],
-  "homepage": "https://github.com/sefinek/ufw-log-parser#readme",
+  "homepage": "https://github.com/sefinek/ufw-log-parser",
   "bugs": {
     "url": "https://github.com/sefinek/ufw-log-parser/issues"
   },
